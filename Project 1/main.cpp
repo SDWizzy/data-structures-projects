@@ -1,195 +1,38 @@
 #include <iostream>
-#include <limits>
-// #include "CircularLinkedList.hpp"
+#include "hat.hpp"
+#include "circularlinkedlist.hpp"
 
 using namespace std;
 
-class Hat {
-private:
-    int id;
-    string color;
-    string brand;
-    int coolness_level;
-public:
-    Hat(string Color, string Brand, int Coolness_level, int id_num = 0) {
-        id = id_num;
-        color = Color;
-        brand = Brand;
-        coolness_level = Coolness_level;
-    };
-    void set_coolness_level(int coolness_level);
-    int get_coolness_level() const {return coolness_level;};
-    int set_id(int id_num);
-    int get_id() const {return id;};
-    string get_color() const {return color;};
-    string get_brand() const {return brand;};
-    // operator overloading
-    bool operator==(const Hat& other) const {
-        // essentially, this operator field tells the compiler how to compare values
-        // of different objects.
-        // "When someone compares a Hat object1 to Hat object2,
-        // consider them equal when these two particular variables have the same value."
-        return color == other.color
-            && brand == other.brand
-            && coolness_level == other.coolness_level;
-    }
-    // since values of hat are private, we use friend to allow us to retrieve values within that field
-    friend ostream& operator<<(ostream& output, const Hat& hat) {
-        output << "Hat ID: " << hat.id << '\n'
-               << "Color: " << hat.color << '\n'
-               << "Brand: " << hat.brand << '\n'
-               << "Coolness level: " << hat.coolness_level;
-        return output;
-    }
-
-
-};
-
-template <typename T>
-class Node
-{
-private:
-    struct ListNode {
-        T value;
-        ListNode* next;
-
-        explicit ListNode(const T& value) : value(value), next(nullptr) {}
-    };
-
-    ListNode* head = nullptr;
-public:
-    Node() = default;
-
-    // destructor, calls delete on each node in the list
-    ~Node() {
-        if (head == nullptr) {
-            return;
-        }
-
-        ListNode* current = head->next;
-        while (current != head) {
-            ListNode* next_node = current->next;
-            delete current;
-            current = next_node;
-        }
-        delete head;
-    }
-
-    Node(const Node&) = delete;
-    Node& operator=(const Node&) = delete;
-
-
-    // insert address of typedef T hat
-    void insert(const T& hat) {
-        // create new node
-        ListNode* new_node = new ListNode(hat);
-
-        // of the list is empty, insert the new node at the head
-        if (head == nullptr) {
-            head = new_node;
-            new_node->next = head;
-            return;
-        }
-
-        // traverse the list and find the end of the list
-        ListNode* tail = head;
-        while (tail->next != head) {
-            tail = tail->next;
-        }
-
-        // insert the new node at the end of the list then attach it to the head.
-        tail->next = new_node;
-        new_node->next = head;
-    }
-
-    void remove(const T& hat) {
-        if (head == nullptr) {
-            return;
-        }
-
-        // Start previous at the tail so removing the head works correctly.
-        ListNode* previous = head;
-        while (previous->next != head) {
-            previous = previous->next;
-        }
-
-        ListNode* current = head;
-        // single entry list edge-case
-        do {
-            if (current->value == hat) {
-                // The only node in the list points to itself.
-                if (current->next == current) {
-                    head = nullptr;
-                } else {
-                    previous->next = current->next;
-
-                    if (current == head) {
-                        head = current->next;
-                    }
-                }
-
-                delete current;
-                return;
-            }
-            // traverse the list until you find the hat to remove
-            previous = current;
-            current = current->next;
-        } while (current != head);
-    }
-
-    void display() const {
-        // empty list edge-case
-        if (head == nullptr) {
-            cout << "The hat collection is empty." << endl;
-            return;
-        }
-
-        const ListNode* current = head;
-        do {
-            cout << current->value << endl;
-            current = current->next;
-        } while (current != head);
-    }
-    //
-    template <typename Predicate>
-    size_t search(Predicate is_match) const {
-        if (head == nullptr) {
-            return 0;
-        }
-
-        size_t match_count = 0;
-        const ListNode* current = head;
-        do {
-            if (is_match(current->value)) {
-                cout << current->value << "\n\n";
-                ++match_count;
-            }
-            current = current->next;
-        } while (current != head);
-
-        return match_count;
-    }
-};
-// help function to double check use enter an integer and not something else
+// Helper function to double check user entered an integer and not something else
 bool read_integer(const string& prompt, int& value) {
+
+    // Keep repeating until return exits the function
     while (true) {
+
+        // Print the question
         cout << prompt;
 
         if (cin >> value) {
             return true;
         }
-
+        
         if (cin.eof()) {
             return false;
         }
+        
+        /* Input has failed */
+        cout << "Please enter a whole number.\n";   
+        /* Reset cin's error state to read again */
+        cin.clear();    
 
-        cout << "Please enter a whole number.\n";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        // Discard rest of the line
+        string discarded;
+        getline(cin, discarded);
     }
 }
 
-void prompt_hat_search(const Node<Hat>& hat_collection) {
+void prompt_hat_search(const CircularList<Hat>& hat_collection) {
     int field_choice;
 
     while (true) {
@@ -263,8 +106,8 @@ void prompt_hat_search(const Node<Hat>& hat_collection) {
 }
 
 int main() {
-// hat collection
-    Node<Hat> hat_collection;
+    // hat collection
+    CircularList<Hat> hat_collection;
 
     cout << "Welcome to the hat collection simulator. \nEnter the amount of hats you have:";
     int hat_amount;
