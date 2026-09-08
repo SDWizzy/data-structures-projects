@@ -132,7 +132,7 @@ public:
         const ListNode* current = head;
         do {
             if (is_match(current->value)) {
-                cout << current->value << "\n\n";
+                cout << current->value << endl;
                 ++match_count;
             }
             current = current->next;
