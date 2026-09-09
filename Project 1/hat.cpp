@@ -39,10 +39,10 @@ bool Hat::operator==(const Hat& other) const {
 }
 
 std::ostream& operator<<(std::ostream& output, const Hat& hat) {
-    output << "Hat ID: " << hat.m_id << '\n'
-           << "Color: " << hat.m_color << '\n'
-           << "Brand: " << hat.m_brand << '\n'
-           << "Coolness level: " << hat.m_coolness_level;
+    output << "\nHat ID: " << hat.m_id << '\n'
+        << "Color: " << hat.m_color << '\n'
+        << "Brand: " << hat.m_brand << '\n'
+        << "Coolness level: " << hat.m_coolness_level;
 
     return output;
 }
