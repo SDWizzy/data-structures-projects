@@ -13,18 +13,20 @@ int main() {
     int next_id = 1;
     int choice = 0;
 
-    cout << "Welcome to the Hat Collection Manager!" << endl;
+    cout << "Hat Collection Manager" << endl;
+    cout << "======================" << endl;
 
     do {
-		cout << "\nMenu:\n"
-			<< "1. Add a hat\n"
-			<< "2. Display all hats\n"
-			<< "3. Search for hats\n"
-			<< "4. Remove a hat\n"
-            << "6. View hat caroussel\n"
-			<< "7. Exit\n";
+        cout << "\nMain Menu\n"
+            << "---------\n"
+            << "1. Add hats\n"
+            << "2. Display all hats\n"
+            << "3. Search hats\n"
+            << "4. Remove a hat\n"
+            << "6. Browse hats\n"
+            << "7. Exit\n";
 
-		if (!read_integer("Enter your choice (1-5): ", choice)) {
+        if (!read_integer("Select an option: ", choice)) {
 			break;
         }
         switch (choice) {
@@ -33,10 +35,9 @@ int main() {
             break;
 
         case 2:
-            cout << "-----------------------------------" << endl;
-            cout << "Current Collection:" << endl;
+            cout << "\nHat Collection\n";
+            cout << "--------------" << endl;
             hat_collection.display();
-            cout << "-----------------------------------" << endl;
             break;
 
         case 3:
@@ -44,7 +45,9 @@ int main() {
             break;
 
         case 4: {
-            cout << "\nEnter the details of the hat you wish to remove\n";
+            cout << "\nRemove a Hat\n";
+            cout << "------------\n";
+            cout << "Enter the hat details.\n";
             cout << "Color: ";
             string color;
             getline(cin >> ws, color);
@@ -58,7 +61,7 @@ int main() {
 
 			Hat target_hat(color, brand, coolness_level);
 			hat_collection.remove(target_hat);
-            cout << "Removal completed.\n";
+            cout << "Hat removal completed.\n";
             break;
             }
 
@@ -72,11 +75,11 @@ int main() {
 
 
         case 7:
-            cout << "Exiting program.\n";
+            cout << "Exiting Hat Collection Manager.\n";
             break;
             
         default:
-            cout << "Invalid selection. Please choose a number from 1 through 5.\n";
+            cout << "Invalid selection. Please choose one of the listed options.\n";
             break;
         }
     } while (choice != 5);

@@ -23,7 +23,7 @@ bool read_integer(const string& prompt, int& value) {
         }
         
         /* Input has failed */
-        cout << "Please enter a whole number.\n";   
+        cout << "Invalid input. Please enter a whole number.\n";   
         /* Reset cin's error state to read again */
         cin.clear();    
 
@@ -38,13 +38,15 @@ void prompt_hat_search(const CircularList<Hat>& hat_collection) {
     int field_choice;
 
     while (true) {
-        cout << "\nSearch hats by:\n"
+           cout << "\nSearch Hats\n"
+               << "-----------\n"
+               << "Search by:\n"
              << "1. ID\n"
              << "2. Color\n"
              << "3. Brand\n"
              << "4. Coolness level\n";
 
-        if (!read_integer("Enter your choice (1-4): ", field_choice)) {
+        if (!read_integer("Select a search field (1-4): ", field_choice)) {
             return;
         }
 
@@ -52,7 +54,7 @@ void prompt_hat_search(const CircularList<Hat>& hat_collection) {
             break;
         }
 
-        cout << "Please choose a number from 1 through 4.\n";
+        cout << "Invalid selection. Please choose an option from 1 through 4.\n";
     }
 
     size_t match_count = 0;
@@ -63,33 +65,33 @@ void prompt_hat_search(const CircularList<Hat>& hat_collection) {
             if (!read_integer("Enter the hat ID: ", id)) {
                 return;
             }
-            cout << "-----------------------------------";
-            cout << "\nSearch results:\n";
+                cout << "\nSearch Results\n";
+                cout << "--------------\n";
             match_count = hat_collection.search(
                 [id](const Hat& hat) { return hat.get_id() == id; });
-            cout << "-----------------------------------" << endl;
+                cout << "--------------\n" << endl;
             break;
         }
         case 2: {
             string color;
-            cout << "Enter the hat color: ";
+                cout << "Enter a hat color: ";
             getline(cin >> ws, color);
-            cout << "-----------------------------------";
-            cout << "\nSearch results:\n";
+                cout << "\nSearch Results\n";
+                cout << "--------------\n";
             match_count = hat_collection.search(
                 [&color](const Hat& hat) { return hat.get_color() == color; });
-            cout << "-----------------------------------" << endl;
+                cout << "--------------\n" << endl;
             break;
         }
         case 3: {
             string brand;
-            cout << "Enter the hat brand: ";
+                cout << "Enter a hat brand: ";
             getline(cin >> ws, brand);
-            cout << "-----------------------------------";
-            cout << "\nSearch results:\n";
+                cout << "\nSearch Results\n";
+                cout << "--------------\n";
             match_count = hat_collection.search(
                 [&brand](const Hat& hat) { return hat.get_brand() == brand; });
-            cout << "-----------------------------------" << endl;
+                cout << "--------------\n" << endl;
             break;
         }
         case 4: {
@@ -97,21 +99,22 @@ void prompt_hat_search(const CircularList<Hat>& hat_collection) {
             if (!read_integer("Enter the coolness level: ", coolness_level)) {
                 return;
             }
-            cout << "-----------------------------------";
-            cout << "\nSearch results:\n";
+                cout << "\nSearch Results\n";
+                cout << "--------------\n";
             match_count = hat_collection.search(
                 [coolness_level](const Hat& hat) {
                     return hat.get_coolness_level() == coolness_level;
                 });
-            cout << "-----------------------------------" << endl;
+                cout << "--------------\n" << endl;
             break;
         }
     }
 
     if (match_count == 0) {
-        cout << "No matching hats found.\n" << endl;
+            cout << "No hats matched your search.\n" << endl;
     } else {
-        cout << match_count << (match_count == 1 ? " match found." : " matches found.") << endl;
+            cout << "Found " << match_count
+                 << (match_count == 1 ? " matching hat." : " matching hats.") << endl;
     }
 }
 
@@ -121,28 +124,28 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id) {
     int count = 0;
 
     if (!read_integer("How many hats would you like to add? ", count) || count <= 0) {
-        cout << "No hats added.\n";
+        cout << "No hats were added.\n";
         return;
     }
 
     for (int i = 0; i < count; i++) {
-        cout << "\nAdding Hat #" << next_id << "\n";
+        cout << "\nAdding Hat " << next_id << "\n";
 
-        cout << "Enter the hat color: ";
+        cout << "Color: ";
         string color;
         getline(cin >> ws, color);
 
-        cout << "Enter the hat brand: ";
+        cout << "Brand: ";
         string brand;
         getline(cin >> ws, brand);
 
         int coolness_level;
-        read_integer("Enter the hat coolness level: ", coolness_level);
+        read_integer("Coolness level: ", coolness_level);
 
         Hat new_hat(color, brand, coolness_level, next_id++);
         hat_collection.insert(new_hat);
     }
-    cout << "\nSuccessfully added " << count << " hat(s)" << endl;
+    cout << "\nAdded " << count << (count == 1 ? " hat." : " hats.") << endl;
 }
 
 // The functions for the hat carousel class
