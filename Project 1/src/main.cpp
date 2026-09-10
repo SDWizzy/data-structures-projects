@@ -7,6 +7,8 @@ using namespace std;
 int main() {
     // hat collection
     CircularList<Hat> hat_collection;
+    // hat carousel
+    HatCarousel carousel(hat_collection);
 
     int next_id = 1;
     int choice = 0;
@@ -29,15 +31,18 @@ int main() {
         case 1:
             add_hats(hat_collection, next_id);
             break;
+
         case 2:
             cout << "-----------------------------------" << endl;
             cout << "Current Collection:" << endl;
             hat_collection.display();
             cout << "-----------------------------------" << endl;
             break;
+
         case 3:
             prompt_hat_search(hat_collection);
             break;
+
         case 4: {
             cout << "\nEnter the details of the hat you wish to remove\n";
             cout << "Color: ";
@@ -58,15 +63,14 @@ int main() {
             }
 
         case 6:
-            cout << "Viewing hat collection:\n\n" << endl;
-            
-            cout << "<< Go Back\t\t Go Forward >>" << endl;
+            carousel.run();
             break;
 
 
         case 7:
             cout << "Exiting program.\n";
             break;
+            
         default:
             cout << "Invalid selection. Please choose a number from 1 through 5.\n";
             break;

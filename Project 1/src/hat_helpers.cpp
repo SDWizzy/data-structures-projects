@@ -144,3 +144,24 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id) {
     }
     cout << "\nSuccessfully added " << count << " hat(s)" << endl;
 }
+
+// The functions for the hat carousel class
+HatCarousel::HatCarousel(CircularList<Hat>& collection)
+    : hat_collection(collection) {
+}
+
+void HatCarousel::run() {
+    cout << "Viewing your hat collection:" << endl;
+}
+
+void HatCarousel::next() {
+
+}
+
+void HatCarousel::previous() {
+
+}
+
+void HatCarousel::display_current() {
+
+}
