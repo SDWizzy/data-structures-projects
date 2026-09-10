@@ -63,7 +63,11 @@ int main() {
             }
 
         case 6:
-            carousel.run();
+            // Clear the terminal
+            std::cout << "\033[2J\033[H\n\n\n" << std::flush;
+    
+            // Run the carousel
+            carousel.run(hat_collection.count());
             break;
 
 

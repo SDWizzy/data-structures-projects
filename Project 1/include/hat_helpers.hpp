@@ -15,11 +15,12 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id);
 class HatCarousel {
     private:
         CircularList<Hat>& hat_collection;
+        int index;
     
     public:
         explicit HatCarousel(CircularList<Hat>& collection);
 
-        void run();
+        void run(size_t count);
         void next();
         void previous();
         void display_current();

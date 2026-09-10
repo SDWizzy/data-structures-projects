@@ -147,21 +147,55 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id) {
 
 // The functions for the hat carousel class
 HatCarousel::HatCarousel(CircularList<Hat>& collection)
-    : hat_collection(collection) {
+    : hat_collection(collection), index(0) {
 }
 
-void HatCarousel::run() {
-    cout << "Viewing your hat collection:" << endl;
+void HatCarousel::run(size_t count) {
+    if (hat_collection.count() == 0) {
+        cout << "There are no hats to display.\n";
+        return;
+    }
+    cout << "Hat Carousel" << endl;
+    cout << "------------" << endl;
+    cout << "Viewing hat 1 of " << count << ":" << endl;
+    display_current();
+    cout << "\nOptions:" << endl;
+    cout << "1. Previous hat" << endl;
+    cout << "2. Next hat" << endl;
+    cout << "3. Return to main menu" << endl;
+    
+    int choice;
+    do {
+    if (!read_integer("\nSelect an option (1-3): ", choice)) {
+    break; }
+    switch(choice) {
+        case 1: 
+            previous();
+            break;
+        case 2: 
+            next();
+            break;
+        case 3:
+            cout << "Returning to the main menu." << endl;
+            break;
+
+        default:
+            cout << "Invalid selection. Please choose an option from 1 through 3.\n";
+            break;
+    }
+    } while (choice != 3);
 }
 
 void HatCarousel::next() {
-
+    index = (index + 1) % hat_collection.count();
+    display_current();
 }
 
 void HatCarousel::previous() {
-
+    index = (index + hat_collection.count() - 1) % hat_collection.count();
+    display_current();
 }
 
 void HatCarousel::display_current() {
-
+    cout << hat_collection.get(index) << endl;
 }
