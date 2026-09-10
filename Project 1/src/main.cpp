@@ -82,7 +82,7 @@ int main() {
             cout << "Invalid selection. Please choose one of the listed options.\n";
             break;
         }
-    } while (choice != 5);
+    } while (choice != 7);
 
     return 0;
 }
