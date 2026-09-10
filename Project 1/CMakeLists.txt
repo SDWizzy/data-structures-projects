@@ -3,11 +3,19 @@ project(data_structures_projects)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(".")
+file(GLOB PROJECT_HEADERS CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
+)
+
+file(GLOB PROJECT_SOURCES CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+)
 
 add_executable(data_structures_projects
-        "circularlinkedlist.hpp"
-        "hat.hpp"
-        "hat.cpp"
-        "main.cpp"
+        ${PROJECT_HEADERS}
+        ${PROJECT_SOURCES}
+)
+
+target_include_directories(data_structures_projects PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

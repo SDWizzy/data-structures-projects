@@ -120,6 +120,31 @@ public:
             current = current->next;
         } while (current != head);
     }
+
+    // Counts each hat by incrementing a pointer while traversing through the list
+    // We save the head so we know when to stop by comparing to it
+    size_t count() const {
+        if (head == nullptr) {
+            return 0;
+        }
+
+        size_t item_count = 0;
+        const ListNode* current = head;
+        do {
+            ++item_count;
+            current = current->next;
+        } while (current != head);
+
+        return item_count;
+    }
+
+    T& get(int index) {
+        ListNode* current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+        return current->value;
+    }
     
 
     template <typename Predicate>
