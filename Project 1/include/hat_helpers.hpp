@@ -11,6 +11,7 @@ using namespace std;
 bool read_integer(const std::string& prompt, int& value);
 void prompt_hat_search(const CircularList<Hat>& hat_collection);
 void add_hats(CircularList<Hat>& hat_collection, int& next_id);
+void capitalize(std::string& str);
 
 class HatCarousel {
     private:

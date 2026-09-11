@@ -53,12 +53,14 @@ int main() {
             if (!getline(cin >> ws, color)) {
                 return 0;
             }
+            capitalize(color);
 
             cout << "Brand: ";
             string brand;
             if (!getline(cin >> ws, brand)) {
                 return 0;
             }
+            capitalize(brand);
 
 			int coolness_level;
 			if (!read_integer("Coolness level: ", coolness_level)) {

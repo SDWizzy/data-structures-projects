@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cctype>
 
 #include "hat_helpers.hpp"
 
@@ -76,6 +77,7 @@ void prompt_hat_search(const CircularList<Hat>& hat_collection) {
             string color;
                 cout << "Enter a hat color: ";
             getline(cin >> ws, color);
+			capitalize(color);
                 cout << "\nSearch Results\n";
                 cout << "--------------\n";
             match_count = hat_collection.search(
@@ -87,6 +89,7 @@ void prompt_hat_search(const CircularList<Hat>& hat_collection) {
             string brand;
                 cout << "Enter a hat brand: ";
             getline(cin >> ws, brand);
+			capitalize(brand);
                 cout << "\nSearch Results\n";
                 cout << "--------------\n";
             match_count = hat_collection.search(
@@ -136,12 +139,14 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id) {
         if (!getline(cin >> ws, color)) {
             return;
         }
+        capitalize(color);
 
         cout << "Brand: ";
         string brand;
         if (!getline(cin >> ws, brand)) {
             return;
         }
+        capitalize(brand);
 
         int coolness_level;
         if (!read_integer("Coolness level: ", coolness_level)) {
@@ -152,6 +157,22 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id) {
         hat_collection.insert(new_hat);
     }
     cout << "\nAdded " << count << (count == 1 ? " hat." : " hats.") << endl;
+}
+
+/*
+* Function that will capitalize the first letter of a string and make the rest lowercase
+* mainly used for formatting for the color and brand
+*/
+void capitalize(string& str) {
+	if (str.empty()) {
+		return;
+	}
+    // Type cast the char to unsigned to avoid any unwanted behavior
+    str[0] = toupper(static_cast<unsigned char>(str[0]));
+
+    for (size_t i = 1; i < str.length(); i++) {
+        str[i] = tolower(static_cast<unsigned char>(str[i]));
+    }
 }
 
 // The functions for the hat carousel class
