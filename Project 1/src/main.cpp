@@ -23,8 +23,8 @@ int main() {
             << "2. Display all hats\n"
             << "3. Search hats\n"
             << "4. Remove a hat\n"
-            << "6. Browse hats\n"
-            << "7. Exit\n";
+            << "5. Browse hats\n"
+            << "6. Exit\n";
 
         if (!read_integer("Select an option: ", choice)) {
 			break;
@@ -50,22 +50,32 @@ int main() {
             cout << "Enter the hat details.\n";
             cout << "Color: ";
             string color;
-            getline(cin >> ws, color);
+            if (!getline(cin >> ws, color)) {
+                return 0;
+            }
 
             cout << "Brand: ";
             string brand;
-            getline(cin >> ws, brand);
+            if (!getline(cin >> ws, brand)) {
+                return 0;
+            }
 
 			int coolness_level;
-			read_integer("Coolness level: ", coolness_level);
+			if (!read_integer("Coolness level: ", coolness_level)) {
+                return 0;
+            }
 
 			Hat target_hat(color, brand, coolness_level);
-			hat_collection.remove(target_hat);
-            cout << "Hat removal completed.\n";
+			bool did_we_find_hat = hat_collection.remove(target_hat);
+            if (!did_we_find_hat) {
+                cout << "------------\nHat not found under specified parameters.\n------------\n";
+                break;
+            }
+            cout << "------------\nHat removal completed.\n------------\n";
             break;
             }
 
-        case 6:
+        case 5:
             // Clear the terminal
             std::cout << "\033[2J\033[H\n\n\n" << std::flush;
     
@@ -74,7 +84,7 @@ int main() {
             break;
 
 
-        case 7:
+        case 6:
             cout << "Exiting Hat Collection Manager.\n";
             break;
             
@@ -82,8 +92,7 @@ int main() {
             cout << "Invalid selection. Please choose one of the listed options.\n";
             break;
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
 }
-

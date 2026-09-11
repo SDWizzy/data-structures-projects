@@ -133,14 +133,20 @@ void add_hats(CircularList<Hat>& hat_collection, int& next_id) {
 
         cout << "Color: ";
         string color;
-        getline(cin >> ws, color);
+        if (!getline(cin >> ws, color)) {
+            return;
+        }
 
         cout << "Brand: ";
         string brand;
-        getline(cin >> ws, brand);
+        if (!getline(cin >> ws, brand)) {
+            return;
+        }
 
         int coolness_level;
-        read_integer("Coolness level: ", coolness_level);
+        if (!read_integer("Coolness level: ", coolness_level)) {
+            return;
+        }
 
         Hat new_hat(color, brand, coolness_level, next_id++);
         hat_collection.insert(new_hat);
@@ -154,6 +160,7 @@ HatCarousel::HatCarousel(CircularList<Hat>& collection)
 }
 
 void HatCarousel::run(size_t count) {
+    index = 0;
     if (hat_collection.count() == 0) {
         cout << "There are no hats to display.\n";
         return;

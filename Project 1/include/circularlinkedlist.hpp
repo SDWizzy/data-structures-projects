@@ -72,9 +72,9 @@ public:
         new_node->next = head;
     }
 
-    void remove(const T& hat) {
+    bool remove(const T& hat) {
         if (head == nullptr) {
-            return;
+            return false;
         }
 
         // Start previous at the tail so removing the head works correctly.
@@ -99,12 +99,14 @@ public:
                 }
 
                 delete current;
-                return;
+                return true;
             }
             // traverse the list until you find the hat to remove
             previous = current;
             current = current->next;
-        } while (current != head);
+        } while (current != head); // keep going until wrap back around to head
+        // if we didn't find the hat, return false'
+        return false;
     }
 
     void display() const {
