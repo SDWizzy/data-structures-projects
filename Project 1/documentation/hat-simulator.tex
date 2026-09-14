@@ -1,62 +1,69 @@
 \documentclass[11pt,letterpaper]{article}
-\usepackage[margin=1in]{geometry}
+
+\usepackage[margin=0.85in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{enumitem}
+
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
+\setlength{\parskip}{5pt}
+\setlist{nosep,leftmargin=1.5em}
 \pagestyle{plain}
 
 \begin{document}
 
 \begin{center}
     {\LARGE\bfseries Hat Simulator\par}
-    \vspace{8pt}
+    \vspace{5pt}
     {\large University of South Florida\par}
-    \vspace{18pt}
-    {\large\bfseries Group Members\par}
-    \vspace{6pt}
+    \vspace{10pt}
+    {\bfseries Group Members\par}
     Alexander Bugar\\
     Hector Colon\\
     Liam Dzanan\\
     Seth Wisniewski
 \end{center}
 
-\vspace{12pt}
-\textbf{Project Name: Hat Simulator}
+\section*{Project Name}
+Hat Simulator
 
-\section*{Instructions to Run}
-\begin{enumerate}
-    \item Open a terminal and navigate to the repository's root directory, the directory containing the \texttt{Project 1} folder.
-    \item Enter the project directory:
-\begin{verbatim}
-cd "Project 1"
-\end{verbatim}
-    \item Configure the project with CMake:
+\section*{Project Overview}
+Hat Simulator is a terminal-based hat collection manager built around a templated circularly linked list. Users can add, display, search for, remove, and browse hats while the program stores the collection in the custom circular list data structure.
+
+\section*{Instructions to Run on the Student Cluster}
+After extracting the submission using any archive manager on the student cluster, open a terminal and navigate to the \texttt{Project 1} code folder. Then run:
+
 \begin{verbatim}
 cmake -S . -B build
-\end{verbatim}
-    \item Build the program:
-\begin{verbatim}
 cmake --build build
-\end{verbatim}
-    \item Run the Hat Simulator:
-\begin{verbatim}
 ./build/data_structures_projects
 \end{verbatim}
-\end{enumerate}
-\vspace{30pt}
+
+The first command configures the CMake project, the second compiles the program, and the third launches it.
 
 \section*{Instructions to Interact}
-% TODO: Add instructions for interacting with the program.
-\vspace{30pt}
+When the program starts, choose an option from the numbered main menu:
+
+\begin{enumerate}
+    \item \textbf{Add hats:} Enter how many hats to add. For each hat, enter its color, brand, and integer coolness level. The program assigns each new hat an ID automatically.
+
+    \item \textbf{Display all hats:} Prints every hat currently stored in the circularly linked list, including its ID, color, brand, and coolness level.
+
+    \item \textbf{Search hats:} Choose whether to search by ID, color, brand, or coolness level, then enter the requested value. The program displays all exact matches. Text searches use the entered spelling and capitalization.
+
+    \item \textbf{Remove a hat:} Enter the color, brand, and coolness level of the hat to remove. The first hat matching all three values is removed. If no hat matches, the program reports that the hat was not found.
+
+    \item \textbf{Browse hats:} Opens the Hat Carousel. Choose \texttt{Previous hat} or \texttt{Next hat} to move through the collection. Because the collection is circular, moving past either end wraps around to the other side. Choose \texttt{Return to main menu} to leave the carousel.
+
+    \item \textbf{Exit:} Ends the program.
+\end{enumerate}
 
 \section*{Distribution of Work}
-% TODO: Replace each blank with the agreed percentage of completed work.
-\begin{tabular}{@{}l@{\hspace{30pt}}l@{}}
-    Alexander Bugar & \underline{\hspace{32pt}}\% \\[5pt]
-    Hector Colon & \underline{\hspace{32pt}}\% \\[5pt]
-    Liam Dzanan & \underline{\hspace{32pt}}\% \\[5pt]
-    Seth Wisniewski & \underline{\hspace{32pt}}\%
+\begin{tabular}{@{}ll@{}}
+    Alexander Bugar & \textbf{25\%} \\
+    Hector Colon & \textbf{25\%} \\
+    Liam Dzanan & \textbf{25\%} \\
+    Seth Wisniewski & \textbf{25\%}
 \end{tabular}
 
 \section*{Academic Integrity Statement}
